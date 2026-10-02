@@ -32,6 +32,8 @@ const scramjet = new ScramjetController({
 
 scramjet.init();
 
+await import("/libcurl/index.mjs").then((libcurl) => libcurl.load_wasm());
+
 const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
 
 form.addEventListener("submit", async (event) => {
