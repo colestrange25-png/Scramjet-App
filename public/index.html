@@ -4,81 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex Adams Express</title>
+
     <style>
-        body {
-            background-color: #0f0c1b;
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b0b;
+            color: white;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 25px;
+            text-align: center;
+            background: #111;
+            border-bottom: 1px solid #333;
+        }
+
+        header h1 {
+            font-size: 32px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: #888;
+            margin-top: 7px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
             padding: 20px;
+            text-align: center;
         }
-        h1 { color: #8a2be2; margin-bottom: 5px; }
-        p { color: #a0a0c0; }
-        .search-container { margin: 30px auto; max-width: 500px; }
+
+        .profile {
+            margin-bottom: 35px;
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #444;
+            margin-bottom: 15px;
+        }
+
+        .profile h2 {
+            font-size: 26px;
+        }
+
+        .proxy-box {
+            background: #151515;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #292929;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+        }
+
         input {
-            width: 100%; padding: 12px; border: 2px solid #8a2be2;
-            background: #1a1530; color: white; border-radius: 25px;
-            outline: none; font-size: 16px; box-sizing: border-box;
+            width: 75%;
+            padding: 15px;
+            background: #090909;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            outline: none;
         }
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 20px;
+
+        button {
+            padding: 15px 22px;
+            margin-left: 8px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
         }
-        .card {
-            background: #1a1530; border: 1px solid #332555; border-radius: 12px;
-            padding: 15px; cursor: pointer; transition: 0.2s;
+
+        button:hover {
+            background: #ccc;
         }
-        .card:hover { transform: translateY(-5px); border-color: #8a2be2; }
-        .card img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; }
-        .card h3 { margin: 10px 0 0 0; font-size: 16px; }
+
+        .notice {
+            margin-top: 20px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            color: #555;
+            padding: 30px;
+            margin-top: 40px;
+        }
     </style>
 </head>
+
 <body>
 
-    <h1>ALEX ADAMS EXPRESS</h1>
-    <p>Fast, unblocked proxy gaming hub.</p>
+    <header>
+        <h1>ALEX ADAMS EXPRESS</h1>
+        <p>Feat. Johnny Sins!</p>
+    </header>
 
-    <div class="search-container">
-        <form id="proxy-form">
-            <input type="text" id="proxy-search" placeholder="Type a URL or search DuckDuckGo unblocked...">
-        </form>
-    </div>
+    <main class="container">
 
-    <div class="grid">
-        <div class="card" onclick="proxyLaunch('https://now.gg')">
-            <img src="https://unsplash.com" alt="Roblox">
-            <h3>now.gg (Roblox/Mobile)</h3>
+        <div class="profile">
+            <img src="alex-adams.jpg" alt="Alex Adams">
+            <h2>Alex Adams Express</h2>
         </div>
-        <div class="card" onclick="proxyLaunch('https://poki.com')">
-            <img src="https://unsplash.com" alt="Poki">
-            <h3>Poki Games</h3>
-        </div>
-        <div class="card" onclick="proxyLaunch('https://crazygames.com')">
-            <img src="https://unsplash.com" alt="CrazyGames">
-            <h3>CrazyGames</h3>
-        </div>
-    </div>
 
-        <script>
-        document.getElementById('proxy-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var query = document.getElementById('proxy-search').value.trim();
-            if (!query) return;
+        <div class="proxy-box">
+            <form onsubmit="openSite(event)">
+                <input
+                    id="url"
+                    type="text"
+                    placeholder="Enter a URL or Search"
+                    autocomplete="off"
+                >
 
-            if (!query.startsWith('http://') && !query.startsWith('https://')) {
-                if (!query.includes('.') || query.includes(' ')) {
-                    query = 'https://duckduckgo.com' + encodeURIComponent(query);
-                } else {
-                    query = 'https://' + query;
-                }
+                <button type="submit">GO</button>
+            </form>
+
+            <p class="notice">
+                Enter a website address above to continue.
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        © 2026 Alex Adams Express
+    </footer>
+
+    <script>
+        function openSite(event) {
+            event.preventDefault();
+
+            let url = document.getElementById("url").value.trim();
+
+            if (!url) return;
+
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "https://" + url;
             }
 
-            proxyLaunch(query);
-        });
-
-        function proxyLaunch(url) {
-            window.location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
+            window.open(url, "_blank");
         }
     </script>
 
