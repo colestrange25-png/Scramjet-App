@@ -126,34 +126,31 @@
                 
             </form>
             
-      <div class="search-container">
-        <form id="proxy-form">
-            <input type="text" id="proxy-search" placeholder="Type a URL or search DuckDuckGo unblocked...">
+       <div class="search-container">
+        <form action="/search" method="GET">
+            <input type="text" name="url" placeholder="Type a URL or search">
         </form>
     </div>
 
     <script>
-        document.getElementById('proxy-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var query = document.getElementById('proxy-search').value.trim();
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var inputField = document.querySelector('input[name="url"]');
+            var query = inputField.value.trim();
             if (!query) return;
 
             if (!query.startsWith('http://') && !query.startsWith('https://')) {
                 if (!query.includes('.') || query.includes(' ')) {
-                    query = 'https://duckduckgo.com' + encodeURIComponent(query);
+                    inputField.value = 'https://duckduckgo.com' + encodeURIComponent(query);
                 } else {
-                    query = 'https://' + query;
+                    inputField.value = 'https://' + query;
                 }
             }
-
-            proxyLaunch(query);
         });
 
         function proxyLaunch(url) {
-            window.location.href = __scramjet$config.prefix + __scramjet$config.codec.encode(url);
+            window.location.href = '/search?url=' + encodeURIComponent(url);
         }
     </script>
-
 
 </body>
 </html>
