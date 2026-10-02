@@ -147,21 +147,33 @@
         © 2026 Alex Adams Express
     </footer>
 
-    <script>
-        function openSite(event) {
-            event.preventDefault();
+   <script>
+    // Intercepts the search bar input
+    document.getElementById('proxy-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const input = document.getElementById('proxy-search').value;
+        proxyLaunch(input);
+    });
 
-            let url = document.getElementById("url").value.trim();
+    function proxyLaunch(url) {
+        if (!url) return;
+        
+        url = url.trim();
 
-            if (!url) return;
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
 
-            if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                url = "https://" + url;
+            if (url.includes('.') && !url.includes(' ')) {
+                url = 'https://' + url;
+            } else {
+                url = 'https://google.com' + encodeURIComponent(url);
             }
-
-            window.open(url, "_blank");
         }
-    </script>
+
+        // Scramjet routing path (Uses the official template encoding standard)
+        window.location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
+    }
+</script>
+
 
 </body>
 </html>
