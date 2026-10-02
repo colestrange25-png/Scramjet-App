@@ -32,8 +32,6 @@ const scramjet = new ScramjetController({
 
 scramjet.init();
 
-await import("/libcurl/index.mjs").then((libcurl) => libcurl.load_wasm());
-
 const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
 
 form.addEventListener("submit", async (event) => {
@@ -54,9 +52,11 @@ form.addEventListener("submit", async (event) => {
 		"://" +
 		location.host +
 		"/wisp/";
-	await connection.setTransport("/libcurl/index.mjs", [
-    { websocket: wispUrl },
-]);
+	if ((await connection.getTransport()) !== "/libcurl/index.mjs") {
+		await connection.setTransport("/libcurl/index.mjs", [
+			{ websocket: wispUrl },
+		]);
+	}
 	const frame = scramjet.createFrame();
 	frame.frame.id = "sj-frame";
 	document.body.appendChild(frame.frame);
