@@ -147,29 +147,24 @@
         © 2026 Alex Adams Express
     </footer>
 
-  <script>
-    document.getElementById('proxy-form').addEventListener('submit', async e => {
+<script>
+    document.getElementById('proxy-form').addEventListener('submit', e => {
         e.preventDefault();
-        const input = document.getElementById('proxy-search').value;
-        proxyLaunch(input);
-    });
+        const input = document.getElementById('proxy-search').value.trim();
+        if (!input) return;
 
-    function proxyLaunch(url) {
-        if (!url) return;
-        
-        url = url.trim();
+        let targetUrl = input;
 
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            if (url.includes('.') && !url.includes(' ')) {
-                url = 'https://' + url;
+        if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+            if (targetUrl.includes('.') && !targetUrl.includes(' ')) {
+                targetUrl = 'https://' + targetUrl;
             } else {
-                url = 'https://duckduckgo.com' + encodeURIComponent(url);
+                targetUrl = 'https://duckduckgo.com' + encodeURIComponent(targetUrl);
             }
         }
 
-        window.location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
-    }
-</script>
+        window.location.href = '/search/' + encodeURIComponent(targetUrl);
+    </script>
 
 </body>
 </html>
