@@ -133,18 +133,26 @@
     </div>
 
     <script>
-        document.querySelector('form').addEventListener('submit', function(e) {
-            var inputField = document.querySelector('input[name="url"]');
-            var query = inputField.value.trim();
-            if (!query) return;
-            if (!query.startsWith('http://') && !query.startsWith('https://')) {
-                if (!query.includes('.') || query.includes(' ')) {
-                    inputField.value = 'https://duckduckgo.com' + encodeURIComponent(query);
-                }
-            }
-        });
-    </script>
+    document.getElementById('proxy-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var query = document.getElementById('proxy-search').value.trim();
+        if (!query) return;
 
+        if (!query.startsWith('http://') && !query.startsWith('https://')) {
+            if (!query.includes('.') || query.includes(' ')) {
+                query = 'https://duckduckgo.com' + encodeURIComponent(query);
+            } else {
+                query = 'https://' + query;
+            }
+        }
+
+        window.location.href = __scramjet$config.prefix + __scramjet$config.codec.encode(query);
+    });
+
+    function proxyLaunch(url) {
+        window.location.href = __scramjet$config.prefix + __scramjet$config.codec.encode(url);
+    }
+        
     </script>
 
 </body>
