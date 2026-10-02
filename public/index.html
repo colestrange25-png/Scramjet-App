@@ -134,36 +134,28 @@
                 >
 
                 <button type="submit">GO</button>
+                
             </form>
+            
+    <div class="search-container">
+        <form action="/search" method="GET">
+            <input type="text" name="url" placeholder="Type a URL or search">
+        </form>
+    </div>
 
-            <p class="notice">
-                Search DuckDuckGo
-            </p>
-        </div>
-
-    </main>
-
-    <footer>
-        © 2026 Alex Adams Express
-    </footer>
-
-<script>
-    document.getElementById('proxy-form').addEventListener('submit', e => {
-        e.preventDefault();
-        const input = document.getElementById('proxy-search').value.trim();
-        if (!input) return;
-
-        let targetUrl = input;
-
-        if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
-            if (targetUrl.includes('.') && !targetUrl.includes(' ')) {
-                targetUrl = 'https://' + targetUrl;
-            } else {
-                targetUrl = 'https://duckduckgo.com' + encodeURIComponent(targetUrl);
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var inputField = document.querySelector('input[name="url"]');
+            var query = inputField.value.trim();
+            if (!query) return;
+            if (!query.startsWith('http://') && !query.startsWith('https://')) {
+                if (!query.includes('.') || query.includes(' ')) {
+                    inputField.value = 'https://duckduckgo.com' + encodeURIComponent(query);
+                }
             }
-        }
+        });
+    </script>
 
-        window.location.href = '/search/' + encodeURIComponent(targetUrl);
     </script>
 
 </body>
