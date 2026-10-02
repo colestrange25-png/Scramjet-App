@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <script>
+        <script>
         document.getElementById('proxy-form').addEventListener('submit', function(e) {
             e.preventDefault();
             var query = document.getElementById('proxy-search').value.trim();
@@ -78,8 +78,9 @@
         });
 
         function proxyLaunch(url) {
-            window.location.href = '/search/' + encodeURIComponent(url);
+            window.location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
         }
     </script>
+
 </body>
 </html>
