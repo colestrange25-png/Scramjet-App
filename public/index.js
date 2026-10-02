@@ -10,7 +10,7 @@ const address = document.getElementById("sj-address");
 /**
  * @type {HTMLInputElement}
  */
-const searchEngine = document.getElementById("sj-search-engine");
+const searchEngine = document.getElementById("https://duckduckgo.com/?q=%s");
 /**
  * @type {HTMLParagraphElement}
  */
